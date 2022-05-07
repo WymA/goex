@@ -434,7 +434,7 @@ func (ok *OKExFuture) LimitFuturesOrder(currencyPair CurrencyPair, contractType,
 	return ok.PlaceFutureOrder2(0, ord)
 }
 
-func (ok *OKExFuture) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
+func (ok *OKExFuture) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
 	return ok.PlaceFutureOrder2(1, &FutureOrder{
 		Currency:     currencyPair,
 		Amount:       ToFloat64(amount),

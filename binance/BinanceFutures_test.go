@@ -1,10 +1,11 @@
 package binance
 
 import (
-	"github.com/nntaoli-project/goex"
-	"github.com/nntaoli-project/goex/internal/logger"
 	"net/http"
 	"testing"
+
+	"github.com/nntaoli-project/goex"
+	"github.com/nntaoli-project/goex/internal/logger"
 )
 
 var baDapi = NewBinanceFutures(&goex.APIConfig{
@@ -45,7 +46,7 @@ func TestBinanceFutures_LimitFuturesOrder(t *testing.T) {
 }
 
 func TestBinanceFutures_MarketFuturesOrder(t *testing.T) {
-	t.Log(baDapi.MarketFuturesOrder(goex.BTC_USD, goex.QUARTER_CONTRACT, "2", goex.OPEN_SELL))
+	t.Log(baDapi.MarketFuturesOrder(goex.BTC_USD, goex.QUARTER_CONTRACT, "2", goex.OPEN_SELL, 10))
 }
 
 func TestBinanceFutures_GetFutureOrder(t *testing.T) {
@@ -61,5 +62,5 @@ func TestBinanceFutures_GetFuturePosition(t *testing.T) {
 }
 
 func TestBinanceFutures_GetUnfinishFutureOrders(t *testing.T) {
-	t.Log(baDapi.GetUnfinishFutureOrders(goex.BTC_USD , goex.QUARTER_CONTRACT))
+	t.Log(baDapi.GetUnfinishFutureOrders(goex.BTC_USD, goex.QUARTER_CONTRACT))
 }

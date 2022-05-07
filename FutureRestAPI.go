@@ -54,7 +54,7 @@ type FutureRestAPI interface {
 	LimitFuturesOrder(currencyPair CurrencyPair, contractType, price, amount string, openType int, opt ...LimitOrderOptionalParameter) (*FutureOrder, error)
 
 	//对手价下单
-	MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error)
+	MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error)
 
 	/**
 	 * 取消订单

@@ -2,11 +2,12 @@ package okex
 
 import (
 	"fmt"
-	. "github.com/nntaoli-project/goex"
-	"github.com/nntaoli-project/goex/internal/logger"
 	"net/url"
 	"sort"
 	"time"
+
+	. "github.com/nntaoli-project/goex"
+	"github.com/nntaoli-project/goex/internal/logger"
 )
 
 type OKExV5Swap struct {
@@ -88,7 +89,7 @@ func (ok *OKExV5Swap) LimitFuturesOrder(currencyPair CurrencyPair, contractType,
 	panic("implement me")
 }
 
-func (ok *OKExV5Swap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
+func (ok *OKExV5Swap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
 	panic("implement me")
 }
 

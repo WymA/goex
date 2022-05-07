@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	. "github.com/nntaoli-project/goex"
-	"github.com/nntaoli-project/goex/internal/logger"
 	"net/url"
 	"sort"
 	"time"
+
+	. "github.com/nntaoli-project/goex"
+	"github.com/nntaoli-project/goex/internal/logger"
 )
 
 type HbdmSwap struct {
@@ -241,7 +242,7 @@ func (swap *HbdmSwap) LimitFuturesOrder(currencyPair CurrencyPair, contractType,
 	}, err
 }
 
-func (swap *HbdmSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
+func (swap *HbdmSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
 	orderId, err := swap.PlaceFutureOrder(currencyPair, contractType, "", amount, openType, 1, 10)
 	return &FutureOrder{
 		Currency:     currencyPair,

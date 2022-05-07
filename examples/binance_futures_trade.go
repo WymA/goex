@@ -8,13 +8,28 @@ import (
 	"github.com/nntaoli-project/goex/builder"
 )
 
+// ref. https://dev.binance.vision/t/why-do-i-see-this-error-invalid-api-key-ip-or-permissions-for-action/93
+const (
+	SPOT_TESTNET_BASE_URL                = "https://testnet.binance.vision"
+	SPOT_PRODUCTION_BASE_URL             = "https://api.binance.com"
+	FUTURES_TESTNET_BASE_URL             = "https://testnet.binancefuture.com"
+	FUTURES_PRODUCTION_BASE_URL          = "https://fapi.binance.com"
+	DELIVERY_FUTURES_TESTNET_BASE_URL    = "https://testnet.binancefuture.com"
+	DELIVERY_FUTURES_PRODUCTION_BASE_URL = "https://dapi.binance.com "
+)
+
 const (
 	BINANCE_TESTNET_API_KEY        = "YOUR_KEY"
 	BINANCE_TESTNET_API_KEY_SECRET = "YOUR_KEY_SECRET"
 )
 
+var binanceApi goex.FutureRestAPI
+
+func initBuilder() {
+	binanceApi = builder.DefaultAPIBuilder.APIKey(BINANCE_TESTNET_API_KEY).APISecretkey(BINANCE_TESTNET_API_KEY_SECRET).FuturesEndpoint(FUTURES_TESTNET_BASE_URL).BuildFuture(goex.BINANCE_SWAP)
+}
+
 func fetchFutureDepthAndIndex() {
-	binanceApi := builder.DefaultAPIBuilder.APIKey(BINANCE_TESTNET_API_KEY).APISecretkey(BINANCE_TESTNET_API_KEY_SECRET).Endpoint(binance.TESTNET_SPOT_WS_BASE_URL).BuildFuture(goex.BINANCE_SWAP)
 
 	depth, err := binanceApi.GetFutureDepth(goex.BTC_USD, goex.SWAP_USDT_CONTRACT, 100)
 	if err != nil {
@@ -96,7 +111,16 @@ func subscribeSpotMarketData() {
 }
 
 func main() {
+
+	initBuilder()
 	//subscribeFutureMarketData()
 	//subscribeFutureMarketData()
-	subscribeSpotMarketData()
+	//fetchFutureDepthAndIndex()
+
+	futuresOrder, err := binanceApi.MarketFuturesOrder(goex.BTC_USD, goex.SWAP_USDT_CONTRACT, "1.0", goex.OPEN_BUY, 10)
+
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+	log.Printf("%+v", futuresOrder)
 }

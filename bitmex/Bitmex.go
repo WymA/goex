@@ -184,8 +184,8 @@ func (bm *bitmex) LimitFuturesOrder(currencyPair CurrencyPair, contractType, pri
 	return bm.PlaceFutureOrder2(currencyPair, contractType, price, amount, openType, 0, 10)
 }
 
-func (bm *bitmex) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
-	return bm.PlaceFutureOrder2(currencyPair, contractType, "0", amount, openType, 1, 10)
+func (bm *bitmex) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
+	return bm.PlaceFutureOrder2(currencyPair, contractType, "0", amount, openType, 1, leverRate)
 }
 
 func (bm *bitmex) FutureCancelOrder(currencyPair CurrencyPair, contractType, orderId string) (bool, error) {

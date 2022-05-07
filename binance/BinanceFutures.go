@@ -343,8 +343,8 @@ func (bs *BinanceFutures) LimitFuturesOrder(currencyPair CurrencyPair, contractT
 	}, err
 }
 
-func (bs *BinanceFutures) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
-	orderId, err := bs.PlaceFutureOrder(currencyPair, contractType, "", amount, openType, 1, 10)
+func (bs *BinanceFutures) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
+	orderId, err := bs.PlaceFutureOrder(currencyPair, contractType, "", amount, openType, 1, leverRate)
 	return &FutureOrder{
 		OrderID2:     orderId,
 		Currency:     currencyPair,

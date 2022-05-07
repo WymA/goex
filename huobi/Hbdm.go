@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/nntaoli-project/goex/internal/logger"
 	"net/http"
 	"net/url"
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/nntaoli-project/goex/internal/logger"
 
 	. "github.com/nntaoli-project/goex"
 )
@@ -339,7 +340,7 @@ func (dm *Hbdm) LimitFuturesOrder(currencyPair CurrencyPair, contractType, price
 	return dm.PlaceFutureOrder2(currencyPair, contractType, price, amount, openType, 0, dm.config.Lever)
 }
 
-func (dm *Hbdm) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
+func (dm *Hbdm) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
 	return dm.PlaceFutureOrder2(currencyPair, contractType, "0", amount, openType, 1, dm.config.Lever)
 }
 

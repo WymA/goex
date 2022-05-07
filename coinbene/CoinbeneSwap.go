@@ -211,7 +211,7 @@ func (swap *CoinbeneSwap) LimitFuturesOrder(currencyPair CurrencyPair, contractT
 	}, err
 }
 
-func (swap *CoinbeneSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
+func (swap *CoinbeneSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
 	panic("not support the market order")
 }
 
