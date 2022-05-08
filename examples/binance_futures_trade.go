@@ -20,7 +20,7 @@ const (
 
 const (
 	BINANCE_TESTNET_API_KEY        = "YOUR_KEY"
-	BINANCE_TESTNET_API_KEY_SECRET = "YOUR_KEY_SECRET"
+	BINANCE_TESTNET_API_KEY_SECRET = "YOUR_SECRET_KEY"
 )
 
 var binanceApi goex.FutureRestAPI
@@ -117,7 +117,14 @@ func main() {
 	//subscribeFutureMarketData()
 	//fetchFutureDepthAndIndex()
 
-	futuresOrder, err := binanceApi.MarketFuturesOrder(goex.BTC_USD, goex.SWAP_USDT_CONTRACT, "1.0", goex.OPEN_BUY, 10)
+	notional, err := binanceApi.SetLeverRate(goex.BTC_USD, goex.SWAP_CONTRACT, 2)
+
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+	log.Printf("%s", notional)
+
+	futuresOrder, err := binanceApi.MarketFuturesOrder(goex.BTC_USD, goex.SWAP_USDT_CONTRACT, "0.01", goex.OPEN_BUY)
 
 	if err != nil {
 		log.Fatalln(err.Error())

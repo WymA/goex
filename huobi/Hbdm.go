@@ -340,7 +340,7 @@ func (dm *Hbdm) LimitFuturesOrder(currencyPair CurrencyPair, contractType, price
 	return dm.PlaceFutureOrder2(currencyPair, contractType, price, amount, openType, 0, dm.config.Lever)
 }
 
-func (dm *Hbdm) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
+func (dm *Hbdm) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
 	return dm.PlaceFutureOrder2(currencyPair, contractType, "0", amount, openType, 1, dm.config.Lever)
 }
 
@@ -685,6 +685,10 @@ func (dm *Hbdm) adaptSymbol(pair CurrencyPair, contractType string) string {
 		symbol += "CQ"
 	}
 	return symbol
+}
+
+func (dm *Hbdm) SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error) {
+	panic("not implements")
 }
 
 func (dm *Hbdm) adaptKLinePeriod(period KlinePeriod) string {

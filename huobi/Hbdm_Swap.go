@@ -242,7 +242,7 @@ func (swap *HbdmSwap) LimitFuturesOrder(currencyPair CurrencyPair, contractType,
 	}, err
 }
 
-func (swap *HbdmSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
+func (swap *HbdmSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
 	orderId, err := swap.PlaceFutureOrder(currencyPair, contractType, "", amount, openType, 1, 10)
 	return &FutureOrder{
 		Currency:     currencyPair,
@@ -498,4 +498,8 @@ func (swap *HbdmSwap) GetDeliveryTime() (int, int, int, int) {
 
 func (swap *HbdmSwap) GetFutureEstimatedPrice(currencyPair CurrencyPair) (float64, error) {
 	panic("not implement")
+}
+
+func (swap *HbdmSwap) SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error) {
+	panic("not implements")
 }

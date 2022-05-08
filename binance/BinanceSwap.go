@@ -390,8 +390,8 @@ func (bs *BinanceSwap) LimitFuturesOrder(currencyPair CurrencyPair, contractType
 	return bs.PlaceFutureOrder2(currencyPair, contractType, price, amount, openType, 0, 10)
 }
 
-func (bs *BinanceSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
-	return bs.PlaceFutureOrder2(currencyPair, contractType, "0", amount, openType, 1, leverRate)
+func (bs *BinanceSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
+	return bs.PlaceFutureOrder2(currencyPair, contractType, "0", amount, openType, 1, 10)
 }
 
 func (bs *BinanceSwap) FutureCancelOrder(currencyPair CurrencyPair, contractType, orderId string) (bool, error) {
@@ -797,6 +797,10 @@ func (bs *BinanceSwap) GetKlineRecords(contractType string, currency CurrencyPai
 	}
 
 	return klineRecords, nil
+}
+
+func (bs *BinanceSwap) SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error) {
+	return bs.f.SetLeverRate(currencyPair, contractType, leverage)
 }
 
 func (bs *BinanceSwap) GetServerTime() (int64, error) {

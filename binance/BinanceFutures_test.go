@@ -46,7 +46,7 @@ func TestBinanceFutures_LimitFuturesOrder(t *testing.T) {
 }
 
 func TestBinanceFutures_MarketFuturesOrder(t *testing.T) {
-	t.Log(baDapi.MarketFuturesOrder(goex.BTC_USD, goex.QUARTER_CONTRACT, "2", goex.OPEN_SELL, 10))
+	t.Log(baDapi.MarketFuturesOrder(goex.BTC_USD, goex.QUARTER_CONTRACT, "2", goex.OPEN_SELL))
 }
 
 func TestBinanceFutures_GetFutureOrder(t *testing.T) {

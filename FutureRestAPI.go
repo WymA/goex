@@ -51,17 +51,32 @@ type FutureRestAPI interface {
 	 */
 	PlaceFutureOrder(currencyPair CurrencyPair, contractType, price, amount string, openType, matchPrice int, leverRate float64) (string, error)
 
+	/**
+	 * Place Futures limit order. 限價盤下單
+	 * @param currencyPair   btc_usd:比特币    ltc_usd :莱特币
+	 * @param contractType   合约类型: this_week:当周   next_week:下周   month:当月   quarter:季度
+	 * @param price  价格
+	 * @param amount  Quantity 委托数量
+	 * @param openType   1:开多   2:开空   3:平多   4:平空
+	 */
 	LimitFuturesOrder(currencyPair CurrencyPair, contractType, price, amount string, openType int, opt ...LimitOrderOptionalParameter) (*FutureOrder, error)
 
-	//对手价下单
-	MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error)
+	/**
+	 * Place Futures market order. 对手价下单
+	 * @param currencyPair   btc_usd:比特币    ltc_usd :莱特币
+	 * @param contractType   合约类型: this_week:当周   next_week:下周   month:当月   quarter:季度
+	 * @param price  价格
+	 * @param amount  Quantity 委托数量
+	 * @param openType   1:开多   2:开空   3:平多   4:平空
+	 * @param leverRate  leverage 杠桿倍數
+	 */
+	MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error)
 
 	/**
 	 * 取消订单
 	 * @param symbol   btc_usd:比特币    ltc_usd :莱特币
 	 * @param contractType    合约类型: this_week:当周   next_week:下周   month:当月   quarter:季度
 	 * @param orderId   订单ID
-
 	 */
 	FutureCancelOrder(currencyPair CurrencyPair, contractType, orderId string) (bool, error)
 
@@ -122,4 +137,8 @@ type FutureRestAPI interface {
 	 * 获取Trade数据
 	 */
 	GetTrades(contractType string, currencyPair CurrencyPair, since int64) ([]Trade, error)
+
+	// Set Leverage Rate
+	// @Param
+	SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error)
 }

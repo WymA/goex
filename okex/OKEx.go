@@ -5,12 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
-	. "github.com/nntaoli-project/goex"
-	"github.com/nntaoli-project/goex/internal/logger"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/google/uuid"
+	. "github.com/nntaoli-project/goex"
+	"github.com/nntaoli-project/goex/internal/logger"
 )
 
 const baseUrl = "https://www.okex.com"
@@ -181,4 +182,8 @@ func (ok *OKEx) GetKlineRecords(currency CurrencyPair, period KlinePeriod, size 
 
 func (ok *OKEx) GetTrades(currencyPair CurrencyPair, since int64) ([]Trade, error) {
 	return ok.OKExSpot.GetTrades(currencyPair, since)
+}
+
+func (ok *OKEx) SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error) {
+	panic("not implements")
 }

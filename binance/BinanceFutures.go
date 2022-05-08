@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -343,8 +344,8 @@ func (bs *BinanceFutures) LimitFuturesOrder(currencyPair CurrencyPair, contractT
 	}, err
 }
 
-func (bs *BinanceFutures) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
-	orderId, err := bs.PlaceFutureOrder(currencyPair, contractType, "", amount, openType, 1, leverRate)
+func (bs *BinanceFutures) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
+	orderId, err := bs.PlaceFutureOrder(currencyPair, contractType, "", amount, openType, 1, 10)
 	return &FutureOrder{
 		OrderID2:     orderId,
 		Currency:     currencyPair,
@@ -592,6 +593,57 @@ func (bs *BinanceFutures) GetExchangeInfo() {
 	}
 
 	logger.Debug("[ExchangeInfo]", bs.exchangeInfo)
+}
+
+// SetLeverRate: binance-> POST /fapi/v1/leverage
+func (bs *BinanceFutures) SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error) {
+
+	apiPath := "leverage"
+
+	// target initial leverage: int from 1 to 125
+	if leverage < 1 || leverage > 125 {
+		return "", errors.New("leverage should be from 1 to 125" + strconv.Itoa(leverage))
+	}
+
+	symbol, err := bs.adaptToSymbol(currencyPair, contractType)
+	if err != nil {
+		return "", err
+	}
+
+	param := url.Values{}
+	param.Set("symbol", symbol)
+	param.Set("leverage", strconv.Itoa(leverage))
+
+	bs.base.buildParamsSigned(&param)
+
+	resp, err := HttpPostForm2(bs.base.httpClient, fmt.Sprintf("%s%s", bs.base.apiV1, apiPath), param,
+		map[string]string{"X-MBX-APIKEY": bs.apikey})
+
+	if err != nil {
+		return "", err
+	}
+
+	logger.Debug(string(resp))
+
+	var response struct {
+		BaseResponse
+		Leverage         int32  `json:"leverage"`
+		MaxNotionalValue string `json:"maxNotionalValue"`
+		Symbol           string `json:"symbol"`
+	}
+
+	err = json.Unmarshal(resp, &response)
+	if err != nil {
+		return "", err
+	}
+
+	if response.Code == 0 {
+		return response.MaxNotionalValue, nil
+	}
+
+	// faild
+	return "", errors.New(response.Msg)
+
 }
 
 func (bs *BinanceFutures) adaptToSymbol(pair CurrencyPair, contractType string) (string, error) {

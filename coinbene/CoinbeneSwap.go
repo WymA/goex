@@ -211,7 +211,7 @@ func (swap *CoinbeneSwap) LimitFuturesOrder(currencyPair CurrencyPair, contractT
 	}, err
 }
 
-func (swap *CoinbeneSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
+func (swap *CoinbeneSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
 	panic("not support the market order")
 }
 
@@ -364,6 +364,10 @@ func (swap *CoinbeneSwap) GetTrades(contract_type string, currencyPair CurrencyP
 
 func (swap *CoinbeneSwap) GetFutureEstimatedPrice(currencyPair CurrencyPair) (float64, error) {
 	panic("")
+}
+
+func (swap *CoinbeneSwap) SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error) {
+	panic("not implements")
 }
 
 func (swap *CoinbeneSwap) doAuthRequest(method, uri string, param interface{}) (*baseResp, error) {

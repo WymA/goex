@@ -1,11 +1,12 @@
 package binance
 
 import (
-	"github.com/nntaoli-project/goex"
 	"log"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/nntaoli-project/goex"
 )
 
 var futuresWs *FuturesWs

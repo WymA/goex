@@ -288,7 +288,7 @@ func (bs *BitgetSwap) LimitFuturesOrder(currencyPair CurrencyPair, contractType,
 	return bs.PlaceFutureOrder2(currencyPair, contractType, price, amount, openType, 0, 10)
 }
 
-func (bs *BitgetSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
+func (bs *BitgetSwap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
 	return bs.PlaceFutureOrder2(currencyPair, contractType, "0", amount, openType, 1, 10)
 }
 

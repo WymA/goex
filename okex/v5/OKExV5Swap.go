@@ -89,7 +89,7 @@ func (ok *OKExV5Swap) LimitFuturesOrder(currencyPair CurrencyPair, contractType,
 	panic("implement me")
 }
 
-func (ok *OKExV5Swap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int, leverRate float64) (*FutureOrder, error) {
+func (ok *OKExV5Swap) MarketFuturesOrder(currencyPair CurrencyPair, contractType, amount string, openType int) (*FutureOrder, error) {
 	panic("implement me")
 }
 
