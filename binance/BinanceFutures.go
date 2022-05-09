@@ -598,6 +598,14 @@ func (bs *BinanceFutures) GetExchangeInfo() {
 // SetLeverRate: binance-> POST /fapi/v1/leverage
 func (bs *BinanceFutures) SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error) {
 
+	if contractType == SWAP_USDT_CONTRACT {
+		return bs.SetLeverRate(currencyPair, contractType, leverage)
+	}
+
+	if contractType != SWAP_CONTRACT {
+		return "", errors.New("contract is error,please incoming SWAP_CONTRACT or SWAP_USDT_CONTRACT")
+	}
+
 	apiPath := "leverage"
 
 	// target initial leverage: int from 1 to 125

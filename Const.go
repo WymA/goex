@@ -118,8 +118,8 @@ var (
 	NEXT_WEEK_CONTRACT  = "next_week"  //次周合约
 	QUARTER_CONTRACT    = "quarter"    //季度合约
 	BI_QUARTER_CONTRACT = "bi_quarter" // NEXT QUARTER
-	SWAP_CONTRACT       = "swap"       //永续合约
-	SWAP_USDT_CONTRACT  = "swap-usdt"
+	SWAP_CONTRACT       = "swap"       // 永续合约
+	SWAP_USDT_CONTRACT  = "swap-usdt"  // USDT based Perpetual
 )
 
 //exchanges const

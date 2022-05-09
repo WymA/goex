@@ -117,7 +117,7 @@ func main() {
 	//subscribeFutureMarketData()
 	//fetchFutureDepthAndIndex()
 
-	notional, err := binanceApi.SetLeverRate(goex.BTC_USD, goex.SWAP_CONTRACT, 2)
+	notional, err := binanceApi.SetLeverRate(goex.BTC_USD, goex.SWAP_USDT_CONTRACT, 2)
 
 	if err != nil {
 		log.Fatalln(err.Error())

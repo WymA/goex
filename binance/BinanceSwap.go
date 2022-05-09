@@ -11,6 +11,7 @@ import (
 	"time"
 
 	. "github.com/nntaoli-project/goex"
+	"github.com/nntaoli-project/goex/internal/logger"
 )
 
 const (
@@ -800,7 +801,57 @@ func (bs *BinanceSwap) GetKlineRecords(contractType string, currency CurrencyPai
 }
 
 func (bs *BinanceSwap) SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error) {
-	return bs.f.SetLeverRate(currencyPair, contractType, leverage)
+
+	if contractType == SWAP_CONTRACT {
+		return bs.f.SetLeverRate(currencyPair, contractType, leverage)
+	}
+
+	if contractType != SWAP_USDT_CONTRACT {
+		return "", errors.New("contract is error,please incoming SWAP_CONTRACT or SWAP_USDT_CONTRACT")
+	}
+
+	apiPath := "leverage"
+
+	// target initial leverage: int from 1 to 125
+	if leverage < 1 || leverage > 125 {
+		return "", errors.New("leverage should be from 1 to 125" + strconv.Itoa(leverage))
+	}
+
+	pair := bs.adaptCurrencyPair(currencyPair)
+	param := url.Values{}
+	param.Set("symbol", pair.ToSymbol(""))
+	param.Set("leverage", strconv.Itoa(leverage))
+
+	bs.buildParamsSigned(&param)
+
+	resp, err := HttpPostForm2(bs.httpClient, fmt.Sprintf("%s%s", bs.apiV1, apiPath), param,
+		map[string]string{"X-MBX-APIKEY": bs.accessKey})
+
+	if err != nil {
+		return "", err
+	}
+
+	logger.Debug(string(resp))
+
+	var response struct {
+		BaseResponse
+		Leverage         int32  `json:"leverage"`
+		MaxNotionalValue string `json:"maxNotionalValue"`
+		Symbol           string `json:"symbol"`
+	}
+
+	err = json.Unmarshal(resp, &response)
+	if err != nil {
+		return "", err
+	}
+
+	if response.Code == 0 {
+		return response.MaxNotionalValue, nil
+	}
+
+	// faild
+	return "", errors.New(response.Msg)
+
 }
 
 func (bs *BinanceSwap) GetServerTime() (int64, error) {

@@ -140,5 +140,5 @@ type FutureRestAPI interface {
 
 	// Set Leverage Rate
 	// @Param
-	SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (string, error)
+	SetLeverRate(currencyPair CurrencyPair, contractType string, leverage int) (notionalMax string, err error)
 }
