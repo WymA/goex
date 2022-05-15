@@ -1,8 +1,3 @@
-<div align="center">
-<img width="409" heigth="205" src="https://upload-images.jianshu.io/upload_images/6760989-dec7dc747846880e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  alt="goex">
-<img width="198" height="205" src="https://upload-images.jianshu.io/upload_images/6760989-81f29f7a5dbd9bb6.jpg" >
-</div>
-
 ![build](https://github.com/WymA/goex/actions/workflows/go.yml/badge.svg?branch=dev)
 
 ### goex目标
@@ -61,11 +56,9 @@ require (
 
 donate
 -----------------
-BTC:bc1qm4fz8vg78yr75syclch9zfnwa0x00efy95972s
+BTC: 1GoExWZop4JCJQkjb1UgtVGpjBKmP4DvG8
 
-LTC:MPgBjHmecACXDKH3KdmLR6X8mmp5YgAEZS
- 
-ETH:0xDEa8C4B6B36294B00b05B6A6A5b63d8aA52A1bF7
+USDT(TRC20): TGoExC6xvzE4wSA9cYZnwcPaXEjibA5Vtc    
 
 ### 欢迎为作者付一碗面钱
 
