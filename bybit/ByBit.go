@@ -15,19 +15,23 @@ import (
 )
 
 const (
-	GLOBAL_API_BASE_URL = "https://api.ByBit.com"
-	US_API_BASE_URL     = "https://api.ByBit.us"
-	JE_API_BASE_URL     = "https://api.ByBit.je"
 
-	FUTURE_USD_WS_BASE_URL  = "wss://fstream.ByBit.com/ws"
-	FUTURE_COIN_WS_BASE_URL = "wss://dstream.ByBit.com/ws"
+	// Mainnet
+	MAINNET_REST_URL_1                      = "https://api.bybit.com"
+	MAINNET_REST_URL_2                      = "https://api.bytick.com"
+	MAINNET_WS_URL_1                        = "wss://stream.bybit.com/realtime"
+	MAINNET_WS_URL_2                        = "wss://stream.bytick.com/realtime"
+	MAINNET_WS_U_BASE_FUTURES_PUBLIC_URL_1  = "wss://stream.bybit.com/realtime_public"
+	MAINNET_WS_U_BASE_FUTURES_PUBLIC_URL_2  = "wss://stream.bytick.com/realtime_public"
+	MAINNET_WS_U_BASE_FUTURES_PRIVATE_URL_1 = "wss://stream.bybit.com/realtime_private"
+	MAINNET_WS_U_BASE_FUTURES_PRIVATE_URL_2 = "wss://stream.bytick.com/realtime_private"
 
-	TESTNET_SPOT_API_BASE_URL       = "https://testnet.ByBitfuture.com"
-	TESTNET_SPOT_WS_BASE_URL        = "wss://testnet.ByBit.vision/ws"
-	TESTNET_SPOT_STREAM_BASE_URL    = "wss://testnet.ByBit.vision/stream"
-	TESTNET_FUTURE_USD_BASE_URL     = "https://testnet.ByBitfuture.com"
-	TESTNET_FUTURE_USD_WS_BASE_URL  = "wss://stream.ByBitfuture.com"
-	TESTNET_FUTURE_COIN_WS_BASE_URL = "wss://stream.ByBitfuture.com"
+	// Testnet
+	TESTNET_REST_URL                      = "https://api-testnet.bybit.com"
+	TESTNET_WS_URL                        = "wss://stream-testnet.bybit.com/realtime"
+	TESTNET_WS_U_BASE_FUTURES_PUBLIC_URL  = "wss://stream-testnet.bybit.com/realtime_public"
+	TESTNET_WS_U_BASE_FUTURES_PRIVATE_URL = "wss://stream-testnet.bybit.com/realtime_private"
+
 	//API_V1       = API_BASE_URL + "api/v1/"
 	//API_V3       = API_BASE_URL + "api/v3/"
 
@@ -191,14 +195,14 @@ func (bn *ByBit) buildParamsSigned(postForm *url.Values) error {
 func New(client *http.Client, api_key, secret_key string) *ByBit {
 	return NewWithConfig(&APIConfig{
 		HttpClient:   client,
-		Endpoint:     GLOBAL_API_BASE_URL,
+		Endpoint:     MAINNET_REST_URL_1,
 		ApiKey:       api_key,
 		ApiSecretKey: secret_key})
 }
 
 func NewWithConfig(config *APIConfig) *ByBit {
 	if config.Endpoint == "" {
-		config.Endpoint = GLOBAL_API_BASE_URL
+		config.Endpoint = MAINNET_REST_URL_1
 	}
 
 	bn := &ByBit{

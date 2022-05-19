@@ -59,13 +59,13 @@ func NewFuturesWs() *FuturesWs {
 
 func (s *FuturesWs) connectUsdtFutures() {
 	s.fOnce.Do(func() {
-		s.f = s.wsBuilder.WsUrl(TESTNET_FUTURE_USD_WS_BASE_URL).Build()
+		s.f = s.wsBuilder.WsUrl(s.f.WsUrl).Build()
 	})
 }
 
 func (s *FuturesWs) connectFutures() {
 	s.dOnce.Do(func() {
-		s.d = s.wsBuilder.WsUrl(TESTNET_FUTURE_COIN_WS_BASE_URL).Build()
+		s.d = s.wsBuilder.WsUrl(s.d.WsUrl).Build()
 	})
 }
 
